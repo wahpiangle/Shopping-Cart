@@ -7,7 +7,6 @@ export default function Cart(){
     const cart = useSelector(state => state.cart.value);
     const dispatch = useDispatch();
 
-    console.log(cart)
     function handleIncrementItem(id){
         dispatch(incrementItem(id));
     }
@@ -43,7 +42,7 @@ export default function Cart(){
                         </div>
                     ))}
                 </div>
-                <div className='cart-total'>
+                <form className='cart-total' action="/create-checkout-session" method="POST">
                     <div className='cart-total-title'>Cart total</div>
                     <div className='cart-total-items-container'>
                         <div className='cart-total-subtitle'>Subtotal</div>
@@ -51,8 +50,8 @@ export default function Cart(){
                         <div className='cart-total-subtitle'>Shipping</div>
                         <div className='cart-total-shipping'>No Shipping Options are available</div>
                     </div>
-                    <div className='cart-total-checkout'>Proceed to Checkout</div>
-                </div>
+                    <button type="submit" className='cart-total-checkout'>Proceed to Checkout</button>
+                </form>
             </div>
         </div>
     )
