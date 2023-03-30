@@ -103,6 +103,11 @@
     font-size: 1.1rem;
     color:gray;
 }
+.button-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .cart-total-checkout{
     margin: 2rem;
@@ -115,6 +120,7 @@
     font-weight: 600;
     border-radius: 12px;
     cursor: pointer;
+    width: 80%;
 }
 
 .cart-total-checkout:hover{
