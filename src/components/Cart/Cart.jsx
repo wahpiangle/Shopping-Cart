@@ -56,7 +56,7 @@ export default function Cart() {
                         </div>
                     ))}
                 </div>
-                <form className='cart-total' action="/create-checkout-session" method="POST">
+                <form className='cart-total'>
                     <div className='cart-total-title'>Cart total</div>
                     <div className='cart-total-items-container'>
                         <div className='cart-total-subtitle'>Subtotal</div>
@@ -66,7 +66,7 @@ export default function Cart() {
                     </div>
                     <input type="hidden" name="cartTotalPrice" value={cart.totalPrice} />
                     <div className='button-wrapper'>
-                        <button type="submit" className='cart-total-checkout'>Proceed to Checkout</button>
+                        <a href="https://buy.stripe.com/test_9AQ3ehcER27o5689AA"><button type="submit" className='cart-total-checkout'>Proceed to Checkout</button></a>
                     </div>
                 </form>
             </div>
