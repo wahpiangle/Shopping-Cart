@@ -66,7 +66,7 @@ export default function Cart() {
                     </div>
                     <input type="hidden" name="cartTotalPrice" value={cart.totalPrice} />
                     <div className='button-wrapper'>
-                        <a href="https://buy.stripe.com/test_9AQ3ehcER27o5689AA"><button type="submit" className='cart-total-checkout'>Proceed to Checkout</button></a>
+                        <a href="https://buy.stripe.com/test_9AQ3ehcER27o5689AA"><button className='cart-total-checkout'>Proceed to Checkout</button></a>
                     </div>
                 </form>
             </div>
