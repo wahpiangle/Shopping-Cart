@@ -56,7 +56,7 @@ export default function Cart() {
                         </div>
                     ))}
                 </div>
-                <form className='cart-total'>
+                <div className='cart-total'>
                     <div className='cart-total-title'>Cart total</div>
                     <div className='cart-total-items-container'>
                         <div className='cart-total-subtitle'>Subtotal</div>
@@ -68,7 +68,7 @@ export default function Cart() {
                     <div className='button-wrapper'>
                         <a href="https://buy.stripe.com/test_9AQ3ehcER27o5689AA"><button className='cart-total-checkout'>Proceed to Checkout</button></a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     )
