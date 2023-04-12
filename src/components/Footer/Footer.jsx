@@ -9,7 +9,7 @@ export default function Footer() {
             </div>
             <div className='footer-links'>
                 <a href="https://www.linkedin.com/in/tanqm/" target='_blank'><AiFillLinkedin fontSize={32} /></a>
-                <a href="https://github.com/wahpiangle/projects/" target='_blank'><AiFillGithub fontSize={32} /></a>
+                <a href="https://github.com/wahpiangle/Shopping-Cart" target='_blank'><AiFillGithub fontSize={32} /></a>
             </div>
         </div >
     )
