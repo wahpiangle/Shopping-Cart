@@ -1,5 +1,5 @@
 import './Login.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -16,19 +16,6 @@ export default function Login() {
             console.log(e)
         }
     }
-
-    const test = async() => {
-        try{
-            let result = await fetch('/.netlify/functions/login').then(res => res.json())
-            console.log(result)
-        }catch(error){
-            console.error(error);
-        }
-    }
-
-    useEffect(()=>{
-        test();
-    })
 
     return (
         <div className="login-box">
