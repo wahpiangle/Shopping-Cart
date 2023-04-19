@@ -1,22 +1,13 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
+import { connect } from "./connect.js";
 
-const mongoClient = new MongoClient(process.env.URI);
-
-const clientPromise = mongoClient.connect();
-
-const handler = async(event) => {
-    try{
-        const database = (await clientPromise).db(process.env.DATABASE);
+export default async function handler(req, res) {
+    try {
+        const { mongoClient } = await connect();
+        const database = mongoClient.db(process.env.DATABASE);
         const collection = database.collection(process.env.COLLECTION);
-        const results = await collection.find({}).limit(10).toArray();
-        return{
-            statusCode: 200,
-            body: JSON.stringify(results),
-        }
-    }catch(error){
-        return {statusCode: 500, body: error.toString()}
+        const results = await collection.find({}).toArray();
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ error: error.toString() });
     }
 }
-
-module.exports= {handler};
