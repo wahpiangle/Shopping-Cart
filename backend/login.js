@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const mongoClient = new MongoClient(process.env.URI);
 
-const clientPromise =mongoClient.connect();
+const clientPromise = mongoClient.connect();
 
 const handler = async(event) => {
     try{

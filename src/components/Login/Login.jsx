@@ -1,27 +1,55 @@
 import './Login.css'
+import { useEffect, useState } from 'react';
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    async function submit(e) {
+        e.preventDefault();
+        try{
+            console.log(email, password)
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+
+    const test = async() => {
+        try{
+            let result = await fetch('/.netlify/functions/login').then(res => res.json())
+            console.log(result)
+        }catch(error){
+            console.error(error);
+        }
+    }
+    useEffect(()=>{
+        test();
+    })
+
     return (
-        <div class="login-box">
+        <div className="login-box">
             <p>Login</p>
-            <form>
-                <div class="user-box">
-                    <input required="" name="" type="text"/>
+            <form action='POST'>
+                <div className="user-box">
+                    <input required name="email" type="text" onChange={(e)=>{setEmail(e.target.value)}}/>
                         <label>Email</label>
                 </div>
-                <div class="user-box">
-                    <input required="" name="" type="password"/>
+                <div className="user-box">
+                    <input required name="password" type="password" onChange={(e)=>{setPassword(e.target.value)}}/>
                         <label>Password</label>
                 </div>
-                <a href="#">
+                <button onClick={submit}>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Submit
-                </a>
+                </button>
             </form>
-            <p>Don't have an account? <a href="" class="a2">Sign up!</a></p>
+            <p>Don't have an account? <a href="" className="a2">Sign up!</a></p>
         </div>
     )
 }
