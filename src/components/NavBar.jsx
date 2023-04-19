@@ -27,6 +27,11 @@ export default function NavBar() {
                         <p className={`nav-contact ${activeComponent === 'contact' ? 'active' : ''}`}>Contact Us</p>
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to='/login' onClick={() => handleNavClick('login')}>
+                        <p className={`nav-login ${activeComponent === 'login' ? 'active' : ''}`}>Login</p>
+                    </NavLink>
+                </li>
             </ul>
             <div className='navbar-smallscreen'>
                 <AiOutlineMenu className='navbar-smallscreen_icon' fontSize={27} onClick={() => setToggleMenu(state => !state)} />
@@ -36,6 +41,7 @@ export default function NavBar() {
                         <li onClick={() => {setToggleMenu(state => !state); handleNavClick()}}><NavLink to='/'>Home</NavLink></li>
                         <li onClick={() => {setToggleMenu(state => !state); handleNavClick('shop')}}><NavLink to='/shop'>Shop</NavLink></li>
                         <li onClick={() => {setToggleMenu(state => !state); handleNavClick('contact')}}><NavLink to='/contact'>Contact</NavLink></li>
+                        <li onClick={() => {setToggleMenu(state => !state); handleNavClick('login')}}><NavLink to='/login'>Login</NavLink></li>
                     </ul>
                 </div>}
             </div>

@@ -16,6 +16,7 @@
 }
 .cart-items{
     margin: 0 2rem 2rem 2rem;
+    min-width: 600px;
 }
 .cart-item{
     display: flex;
