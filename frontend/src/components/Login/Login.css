@@ -167,7 +167,7 @@
     }
 }
 
-.login-box p:last-child {
+.login-box .switch-p {
     color: #000000;
     font-size: 14px;
 }
@@ -182,4 +182,15 @@
     background: transparent;
     color: #a7a7a7;
     border-radius: 5px;
+}
+
+.error{
+    color: red;
+    background-color: #fdd8d8;
+    border-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border: 2px solid red
 }

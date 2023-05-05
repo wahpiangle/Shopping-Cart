@@ -1,5 +1,6 @@
 import './App.css'
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import { useAuthContext } from './hooks/useAuthContext'
 import Home from './components/Home/Home'
 import Cart from './components/Cart/Cart'
 import RootLayout from './layout/RootLayout'
@@ -9,7 +10,15 @@ import Shop from './components/Shop/Shop'
 import Contact from './components/Contact/Contact'
 import Individual from './components/Individual/Individual'
 import Login from './components/Login/Login'
+import Signup from './components/Login/Signup'
+
 function App() {
+
+  const { state } = useAuthContext();
+  const { user } = state
+
+  console.log(user);
+  //TODO protect the routes when not logged in
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +33,7 @@ function App() {
         <Route path="shop:id" element={<Individual/>} />
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
       </Route>
     ))
 

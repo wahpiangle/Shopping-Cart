@@ -1,22 +1,27 @@
 import { Link } from 'react-router-dom';
 import './Login.css'
 import { useState } from 'react';
-import { useLogin } from '../../hooks/useLogin';
+import { useSignup } from '../../hooks/useSignup';
 
-export default function Login() {
+export default function Signup() {
+    const [name, setName ] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { login, error, loading } = useLogin()
+    const { signup, loading, error } = useSignup()
 
     const handleSubmit = async(e) =>{
         e.preventDefault()
-        await login(email, password)
+        await signup(name, email, password)
     }
 
     return (
         <div className="login-box">
-            <p>Login</p>
+            <p>Sign Up</p>
             <form action='POST'>
+                <div className="user-box">
+                    <input required name="name" type="text" onChange={(e)=>{setName(e.target.value)}}/>
+                        <label>Name</label>
+                </div>
                 <div className="user-box">
                     <input required name="email" type="text" onChange={(e)=>{setEmail(e.target.value)}}/>
                         <label>Email</label>
@@ -33,7 +38,7 @@ export default function Login() {
                     Submit
                 </button>
             </form>
-            <p className="switch-p">Don't have an account? <Link to="/signup" className="a2">Sign up!</Link></p>
+            <p className="switch-p">Already have an account? <Link to="/login" className="a2">Login to your account</Link></p>
             {error && <p className='error'>{error}</p>}
         </div>
     )

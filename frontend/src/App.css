@@ -31,9 +31,11 @@ nav a{
 nav .nav-links{
     list-style: none;
     display: flex;
+    align-items: center;
+    border-bottom: 2px transparent solid;
 }
 
-li a{
+.nav-links li{
     color: white;
     cursor: pointer;
 }
@@ -50,11 +52,15 @@ nav p.active{
     border-bottom: 1px solid white;
 }
 
-nav .nav-shop, .nav-contact, .nav-login{
+nav .nav-shop, .nav-contact, .nav-login, .nav-user{
     white-space: nowrap;
     padding: 1rem;
     border-bottom: 1px solid rgb(32, 32, 32);
     font-size: 1.2em;
+}
+
+.nav-user{
+    text-align: center;
 }
 
 nav .nav-cart{
