@@ -19,7 +19,7 @@ export default function Login() {
 
     return (
         <>
-            <p className='message'>To use a test account:<br />Email: test@test.com<br />Pw: TESTtest123</p>
+            <p className='message'>To use a test account:<br />Email: test@test.com<br />Pw: TESTtest123.</p>
             <div className="login-box">
                 <p>Login</p>
                 <form action='POST'>

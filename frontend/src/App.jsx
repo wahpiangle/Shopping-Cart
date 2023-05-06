@@ -17,7 +17,6 @@ function App() {
 
   const { state } = useAuthContext();
   const { user } = state
-  console.log(user)
 
   const router = createBrowserRouter(
     createRoutesFromElements(
