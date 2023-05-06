@@ -10,10 +10,10 @@ export default function Signup() {
     const { signup, loading, error } = useSignup()
     const navigate = useNavigate()
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        await signup(name, email, password)
-        if(error === null){
+        const res = await signup(name, email, password)
+        if (res.error === null) {
             navigate('/')
         }
     }
