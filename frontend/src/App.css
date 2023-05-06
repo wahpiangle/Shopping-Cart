@@ -19,7 +19,7 @@ nav{
 }
 
 nav h2{
-    font-size: 2em;
+    font-size: 1.8em;
     color: white;
     padding: 2rem;
     cursor: pointer;
@@ -93,7 +93,9 @@ nav .nav-cart{
     margin-left: -0.5rem;
     margin-top: -1rem;
 }
-
+.navbar-smallscreen_icon{
+    margin:2.2rem 0;
+}
 
 .navbar-smallscreen_overlay{
     position: fixed;

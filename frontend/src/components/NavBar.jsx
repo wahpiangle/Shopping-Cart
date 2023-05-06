@@ -59,12 +59,12 @@ export default function NavBar() {
                 <AiOutlineMenu className='navbar-smallscreen_icon' fontSize={27} onClick={() => setToggleMenu(state => !state)} />
                 {menuToggle && <div className='navbar-smallscreen_overlay'>
                     <ul className='overlay-links'>
-                        //TODO update the login status
                         <AiOutlineClose className='overlay_close' onClick={() => setToggleMenu(state => !state)} />
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick() }}><NavLink to='/'>Home</NavLink></li>
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('shop') }}><NavLink to='/shop'>Shop</NavLink></li>
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('contact') }}><NavLink to='/contact'>Contact</NavLink></li>
-                        <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><NavLink to='/login'>Login</NavLink></li>
+                        {!user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><NavLink to='/login'>Login</NavLink></li>}
+                        {user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><p onClick={handleLogout}>{displayText}</p></li>}
                     </ul>
                 </div>}
             </div>
