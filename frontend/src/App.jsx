@@ -17,8 +17,7 @@ function App() {
 
   const { state } = useAuthContext();
   const { user } = state
-
-  console.log(user);
+  console.log(user)
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,14 +25,14 @@ function App() {
         <Route index element={<Home />} />
         <Route path="cart" element={user ? <Cart /> : <NotLoggedIn text="cart"/>} />
         <Route path='*' element={<NotFound />} />
-        <Route path="shop" element={user ? <ShopLayout/> : <NotLoggedIn text='shop catalogue'/>}>
+        <Route path="shop" element={user ? <ShopLayout/> : <NotLoggedIn text='shop'/>}>
           <Route index element={<Shop/>} />
           <Route path=":id" element={<Individual/>} />
         </Route>
         <Route path="shop:id" element={<Individual/>} />
         <Route path="contact" element={<Contact />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="login" element={!user ? <Login /> : <Home/>} />
+        <Route path="signup" element={!user ? <Signup /> : <Home/>} />
       </Route>
     ))
 
