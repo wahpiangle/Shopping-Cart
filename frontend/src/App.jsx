@@ -11,6 +11,7 @@ import Contact from './components/Contact/Contact'
 import Individual from './components/Individual/Individual'
 import Login from './components/Login/Login'
 import Signup from './components/Login/Signup'
+import NotLoggedIn from './components/NotLoggedIn/NotLoggedIn'
 
 function App() {
 
@@ -18,15 +19,14 @@ function App() {
   const { user } = state
 
   console.log(user);
-  //TODO protect the routes when not logged in
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart" element={user ? <Cart /> : <NotLoggedIn text="cart"/>} />
         <Route path='*' element={<NotFound />} />
-        <Route path="shop" element={<ShopLayout/>}>
+        <Route path="shop" element={user ? <ShopLayout/> : <NotLoggedIn text='shop catalogue'/>}>
           <Route index element={<Shop/>} />
           <Route path=":id" element={<Individual/>} />
         </Route>
