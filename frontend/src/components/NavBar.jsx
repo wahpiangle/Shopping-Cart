@@ -7,7 +7,6 @@ import { useLogout } from '../hooks/useLogout'
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
     const [menuToggle, setToggleMenu] = useState(false);
-    const [hover, setHover] = useState(false);
 
     const cart = useSelector(state => state.cart.value);
 
@@ -23,11 +22,7 @@ export default function NavBar() {
         logout()
     }
 
-    const handleHover = () => {
-        setHover(!hover);
-    };
 
-    const displayText = !user ? 'Logout' : user.name.length > 10 ? 'Logout' : `Logout ${user.name}`
 
     return (
         <nav className="navbar">
@@ -45,15 +40,24 @@ export default function NavBar() {
                         <p className={`nav-contact ${activeComponent === 'contact' ? 'active' : ''}`}>Contact Us</p>
                     </NavLink>
                 </li>
-                {!user && <li>
-                    <NavLink to='/login' onClick={() => handleNavClick('login')}>
-                        <p className={`nav-login ${activeComponent === 'login' ? 'active' : ''}`}>Login</p>
-                    </NavLink>
-                </li>}
-                {user && <li>
-                    <p className='nav-user' onMouseEnter={handleHover} onMouseLeave={handleHover} onClick={handleLogout}>{displayText}</p>
-                </li>
+                {user && <NavLink to='/cart' onClick={() => handleNavClick('cart')}>
+                    <div className="nav-cart">
+                        <AiFillShopping className="nav-cart-icon" />
+                        <span className='nav-cart-quantity'>
+                            <span>{cart.totalItems}</span>
+                        </span>
+                    </div>
+                </NavLink>}
+                {!user &&
+                    <li>
+                        <NavLink to='/cart' onClick={() => handleNavClick('cart')}>
+                            <p className={`nav-cart-text ${activeComponent === 'cart' ? 'active' : ''}`}>
+                                Cart
+                            </p>
+                        </NavLink>
+                    </li>
                 }
+
             </ul>
             <div className='navbar-smallscreen'>
                 <AiOutlineMenu className='navbar-smallscreen_icon' fontSize={27} onClick={() => setToggleMenu(state => !state)} />
@@ -68,14 +72,24 @@ export default function NavBar() {
                     </ul>
                 </div>}
             </div>
-            <NavLink to='/cart' onClick={() => handleNavClick()}>
+            {/* {user && <NavLink to='/cart' onClick={() => handleNavClick()}>
                 <div className="nav-cart">
                     <AiFillShopping className="nav-cart-icon" />
                     <span className='nav-cart-quantity'>
                         <span>{cart.totalItems}</span>
                     </span>
                 </div>
-            </NavLink>
+            </NavLink>} */}
+            {!user &&
+                <NavLink to='/login' onClick={() => handleNavClick('login')}>
+                    <div className="login-button">Login</div>
+                </NavLink>
+            }
+            {user &&
+                <div onClick={handleLogout}>
+                    <div className="login-button">Logout</div>
+                </div>
+            }
         </nav>
     )
 }

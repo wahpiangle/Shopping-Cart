@@ -14,7 +14,7 @@ a {
 nav{
     background-color: rgb(32, 32, 32);
     display: flex;
-    justify-content:space-around;
+    justify-content:space-between;
     align-items: center;
 }
 
@@ -52,7 +52,7 @@ nav p.active{
     border-bottom: 1px solid white;
 }
 
-nav .nav-shop, .nav-contact, .nav-login, .nav-user{
+nav .nav-shop, .nav-contact, .nav-login, .nav-user, .nav-cart-text{
     white-space: nowrap;
     padding: 1rem;
     border-bottom: 1px solid rgb(32, 32, 32);
@@ -67,6 +67,7 @@ nav .nav-cart{
     display: flex;
     align-items: center;
     cursor: pointer;
+    padding: 0 2rem;
 }
 
 .nav-cart .nav-cart-icon{
@@ -138,6 +139,11 @@ nav .nav-cart{
     color: white;
     cursor: pointer;
 }
+
+.navbar-smallscreen{
+    display:none;
+}
+
 .navbar-smallscreen_icon{
     margin-right: 6rem;
     color: white;
@@ -149,7 +155,27 @@ nav .nav-cart{
     transform: scale(1.1);
 }
 
+.login-button{
+    padding: .5rem 2rem;
+    background-color: white;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    margin: 0 2rem;
+    cursor: pointer;
+}
+
+.login-button:hover{
+    background-color: transparent;
+    border: 2px solid white;
+    color:white;
+
+}
+
 @media screen and (max-width: 1150px) {
+    .navbar-smallscreen{
+        display:block
+    }
+
     .navbar-smallscreen_icon{
         display: block;
         cursor: pointer;
