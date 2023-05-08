@@ -88,5 +88,26 @@ const getCart = async (req, res) => {
     }
 }
 
+const deleteItemFromCart = async(req,res) =>{
+    const { email, product_id } = req.body;
+    const { id } = req.params;
+    try{
+        const userCart = await User.findOneAndUpdate(
+            {email:email},
+            {
+                $pull: {
+                    "cart.products": {
+                        productId: id
+                    }
+                }
+            },
+            { new: true }
+        )
+        res.status(200).json(userCart);
+    }catch(error){
+        res.status(400).json({error: error.message});
+    }
+}
 
-module.exports = { loginUser, signupUser, addToCart, getCart }
+
+module.exports = { loginUser, signupUser, addToCart, getCart, deleteItemFromCart }

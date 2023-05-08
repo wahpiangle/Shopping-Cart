@@ -46,7 +46,7 @@ export default function Individual() {
         })
         const json = await response.json();
         console.log(json);
-        dispatch(setNumber(json.cart.products.length.toString()));
+        dispatch(setNumber(json.cart.products.length < 0 ? 0 : json.cart.products.length ));
         setTimeout(() =>{
             setPurchased(false);
         },2000)

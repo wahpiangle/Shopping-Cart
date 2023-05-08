@@ -3,9 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
 import { incrementItem, decrementItem, clearItem } from '../../redux/cartSlice';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function Cart() {
     const cart = useSelector(state => state.cart.value);
+    const { state } = useAuthContext()
+    const { user } = state
     const dispatch = useDispatch();
 
     function handleIncrementItem(id) {
@@ -16,10 +19,21 @@ export default function Cart() {
         dispatch(decrementItem(id));
     }
 
-    function handleClearItem(id) {
+    async function handleClearItem(id) {
         dispatch(clearItem(id));
+        const response = await fetch(`http://localhost:4000/api/users/cart/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email: user.email, product_id: id})
+        })
+        const json = await response.json();
+        console.log(json);
     }
 
+    console.log(cart)
     if (cart.itemsInCart.length !== 0) {
         return (
             <div className="cart">

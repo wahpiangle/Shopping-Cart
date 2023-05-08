@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { loginUser, signupUser, addToCart, getCart } = require('../controllers/userController');
+const { loginUser, signupUser, addToCart, getCart, deleteItemFromCart } = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -14,5 +14,7 @@ router.post('/signup', signupUser)
 router.put('/addtocart', addToCart)
 
 router.post('/cart', getCart)
+
+router.delete('/cart/:id', deleteItemFromCart)
 
 module.exports = router;
