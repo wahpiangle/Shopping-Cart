@@ -4,15 +4,18 @@ import { useState } from "react"
 import MyCarousel from "../Carousel/MyCarousel";
 import { useDispatch } from "react-redux";
 import { addItems } from "../../redux/cartSlice";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function Individual() {
+
     const products = useOutletContext();
     const [quantity, setQuantity] = useState(1);
     let { id } = useParams();
     const product = products[id - 1];
     const dispatch = useDispatch();
     const [purchased, setPurchased] = useState(false);
-
+    const { state } = useAuthContext()
+    const { user } = state
 
     function handleQuantity(e) {
         setQuantity(e.target.value);
@@ -24,14 +27,29 @@ export default function Individual() {
         setQuantity(parseInt(quantity) > 0 ? parseInt(quantity) - 1 : 0);
     }
 
-    function handleAddToCart(){
+    async function handleAddToCart(){
         dispatch(addItems({product, quantity}));
         setPurchased(true);
+        const response = await fetch(`https://shoppe-api.onrender.com/api/users/addtocart`, {
+            method: 'PUT',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email: user.email,
+                cart:{
+                    product:{
+                        productId: product.id,
+                        quantity: quantity
+                    }
+                }
+            })
+        })
+        const json = await response.json();
+        console.log(json);
         setTimeout(() =>{
             setPurchased(false);
         },2000)
     }
-
     return (
         <div className="individual-container">
             <h1 className="individual-title">{product.name}</h1>

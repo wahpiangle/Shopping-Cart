@@ -4,14 +4,33 @@ import { Link } from 'react-router-dom';
 import { addItems } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function Product({product}){
     const dispatch = useDispatch();
     const [purchased, setPurchased] = useState(false);
+    const { state } = useAuthContext()
+    const { user } = state
 
-    function handleAddToCart(product){
+    async function handleAddToCart(product){
         dispatch(addItems({product, quantity:1}));
         setPurchased(true);
+        const response = await fetch(`https://shoppe-api.onrender.com/api/users/addtocart`, {
+            method: 'PUT',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email: user.email,
+                cart:{
+                    product:{
+                        productId: product.id,
+                        quantity: 1
+                    }
+                }
+            })
+        })
+        const json = await response.json();
+        console.log(json);
         setTimeout(() =>{
             setPurchased(false);
         },2000)

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout'
+
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
     const [menuToggle, setToggleMenu] = useState(false);
@@ -21,8 +22,6 @@ export default function NavBar() {
     const handleLogout = () => {
         logout()
     }
-
-
 
     return (
         <nav className="navbar">
