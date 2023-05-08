@@ -45,7 +45,7 @@ const addToCart = async (req, res) => {
         const updatedUser = await User.findOneAndUpdate(
             { email: email, "cart.products.productId": cart.product.productId },
             {
-                $inc: { "cart.products.$.quantity": cart.product.quantity }
+                $inc: { "cart.products.$.quantity": cart.product.quantity },
             },
             { new: true }
         );
@@ -62,7 +62,7 @@ const addToCart = async (req, res) => {
                             productId: cart.product.productId,
                             quantity: cart.product.quantity
                         }
-                    }
+                    },
                 },
                 { new: true }
             );
@@ -78,6 +78,15 @@ const addToCart = async (req, res) => {
     }
 };
 
+const getCart = async (req, res) => {
+    const { email } = req.body;
+    try{
+        const userCart = User.findOne({email: email}).select('cart');
+        res.status(200).json(userCart);
+    }catch(error){
+        res.status(400).json({error: error.message});
+    }
+}
 
 
-module.exports = { loginUser, signupUser, addToCart }
+module.exports = { loginUser, signupUser, addToCart, getCart }

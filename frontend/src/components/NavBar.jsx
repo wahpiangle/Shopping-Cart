@@ -8,20 +8,20 @@ import { useLogout } from '../hooks/useLogout'
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
     const [menuToggle, setToggleMenu] = useState(false);
-
     const cart = useSelector(state => state.cart.value);
 
     function handleNavClick(component) {
         setActiveComponent(component);
     }
-    const { logout } = useLogout()
 
+    const { logout } = useLogout()
     const { state } = useAuthContext()
     const { user } = state
 
     const handleLogout = () => {
         logout()
     }
+
 
     return (
         <nav className="navbar">
@@ -71,14 +71,6 @@ export default function NavBar() {
                     </ul>
                 </div>}
             </div>
-            {/* {user && <NavLink to='/cart' onClick={() => handleNavClick()}>
-                <div className="nav-cart">
-                    <AiFillShopping className="nav-cart-icon" />
-                    <span className='nav-cart-quantity'>
-                        <span>{cart.totalItems}</span>
-                    </span>
-                </div>
-            </NavLink>} */}
             {!user &&
                 <NavLink to='/login' onClick={() => handleNavClick('login')}>
                     <div className="login-button">Login</div>
