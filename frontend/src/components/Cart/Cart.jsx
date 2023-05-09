@@ -13,7 +13,7 @@ export default function Cart() {
 
     async function handleIncrementItem(id) {
         dispatch(incrementItem(id));
-        const response = await fetch(`http://localhost:4000/api/users/cart/increment/${id}`,
+        const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/increment/${id}`,
             {
                 method: 'PUT',
                 headers:{
@@ -29,7 +29,7 @@ export default function Cart() {
 
     async function handleDecrementItem(id) {
         dispatch(decrementItem(id));
-        const response = await fetch(`http://localhost:4000/api/users/cart/decrement/${id}`,
+        const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/decrement/${id}`,
             {
                 method: 'PUT',
                 headers:{
@@ -44,7 +44,7 @@ export default function Cart() {
 
     async function handleClearItem(id) {
         dispatch(clearItem(id));
-        const response = await fetch(`http://localhost:4000/api/users/cart/${id}`,
+        const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/${id}`,
         {
             method: 'DELETE',
             headers: {
