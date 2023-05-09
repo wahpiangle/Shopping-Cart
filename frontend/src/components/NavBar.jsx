@@ -8,9 +8,10 @@ import { useLogout } from '../hooks/useLogout'
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
     const [menuToggle, setToggleMenu] = useState(false);
-    const cart = useSelector(state => state.cart.value);
 
     const { logout } = useLogout()
+
+    //! fix user context status not updated upon cart changes
     const { state } = useAuthContext()
     const { user } = state
 
@@ -21,8 +22,8 @@ export default function NavBar() {
     const handleLogout = () => {
         logout()
     }
-    console.log(cart)
 
+    console.log(user)
 
     return (
         <nav className="navbar">
@@ -44,7 +45,7 @@ export default function NavBar() {
                     <div className="nav-cart">
                         <AiFillShopping className="nav-cart-icon" />
                         <span className='nav-cart-quantity'>
-                            <span>{cart.totalItems}</span>
+                            <span>{user.cart.products.length}</span>
                         </span>
                     </div>
                 </NavLink>}

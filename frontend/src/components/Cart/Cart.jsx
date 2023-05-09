@@ -10,6 +10,7 @@ export default function Cart() {
     const { state } = useAuthContext()
     const { user } = state
     const dispatch = useDispatch();
+    const products = useSelector((state) => state.product.value)
 
     async function handleIncrementItem(id) {
         dispatch(incrementItem(id));
@@ -50,29 +51,30 @@ export default function Cart() {
             body: JSON.stringify({email: user.email, product_id: id})
         })
         const json = await response.json();
+        console.log(json)
     }
 
-    if (cart.itemsInCart.length !== 0) {
+    if (user.cart.products.length !== 0) {
         return (
             <div className="cart">
                 <div className="cart-title">Cart</div>
                 <div className='cart-container'>
                     <div className='cart-items'>
-                        {cart.itemsInCart.map(item => (
-                            <div className='cart-item' key={item.id}>
+                        {user.cart.products.map(item => (
+                            <div className='cart-item' key={products[item.productId-1].id}>
                                 <div className='cart-item-image'>
-                                    <img src={item.image[0].url} />
+                                    <img src={products[item.productId-1].image[0].url} />
                                 </div>
-                                <div className='cart-item-details'>
-                                    <div className='cart-item-details-name'>{item.name}</div>
-                                    <div className='cart-item-details-price'>${item.price}</div>
+                                <div className='cart-item-details' key={products[item.productId-1].productId}>
+                                    <div className='cart-item-details-name'>{products[item.productId-1].name}</div>
+                                    <div className='cart-item-details-price'>${products[item.productId-1].price}</div>
                                 </div>
                                 <div className='cart-item-quantity'>
-                                    <div className='cart-item-quantity-minus' onClick={() => handleDecrementItem(item.id)}>-</div>
+                                    <div className='cart-item-quantity-minus' onClick={() => handleDecrementItem(products[item.productId-1].id)}>-</div>
                                     {item.quantity}
-                                    <div className='cart-item-quantity-plus' onClick={() => handleIncrementItem(item.id)}>+</div>
+                                    <div className='cart-item-quantity-plus' onClick={() => handleIncrementItem(products[item.productId-1].id)}>+</div>
                                 </div>
-                                <RxCross1 className='cart-clear-item' onClick={() => handleClearItem(item.id)}></RxCross1>
+                                <RxCross1 className='cart-clear-item' onClick={() => handleClearItem(products[item.productId-1].id)}></RxCross1>
                             </div>
                         ))}
                     </div>
