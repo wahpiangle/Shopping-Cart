@@ -14,12 +14,9 @@ export default function NavBar() {
     const { state } = useAuthContext()
     const { user } = state
 
-    console.log(user)
-
     function handleNavClick(component) {
         setActiveComponent(component);
     }
-
 
     const handleLogout = () => {
         logout()

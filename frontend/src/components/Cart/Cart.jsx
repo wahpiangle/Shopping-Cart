@@ -23,8 +23,6 @@ export default function Cart() {
             }
         )
         const json = await response.json();
-        console.log(json);
-
     }
 
     async function handleDecrementItem(id) {
@@ -39,7 +37,6 @@ export default function Cart() {
             }
         )
         const json = await response.json();
-        console.log(json);
     }
 
     async function handleClearItem(id) {
@@ -53,10 +50,8 @@ export default function Cart() {
             body: JSON.stringify({email: user.email, product_id: id})
         })
         const json = await response.json();
-        console.log(json);
     }
 
-    console.log(cart)
     if (cart.itemsInCart.length !== 0) {
         return (
             <div className="cart">
