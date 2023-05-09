@@ -31,6 +31,7 @@ export const useLogin = () => {
             dispatch({type: 'LOGIN', payload: json})
 
             setLoading(false)
+            return json
         }
     }
 

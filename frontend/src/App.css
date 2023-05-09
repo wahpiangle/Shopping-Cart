@@ -145,7 +145,6 @@ nav .nav-cart{
 }
 
 .navbar-smallscreen_icon{
-    margin-right: 6rem;
     color: white;
     display: none;
     transition: 0.5s ease;

@@ -12,10 +12,10 @@ const loginUser = async (req, res) => {
 
     try {
         const user = await User.login(email, password)
-        const { name } = await User.findOne({ email: email }).select('name -_id')
+        const { name, cart } = await User.findOne({ email: email }).select('name cart -_id')
         const token = createToken(user._id)
 
-        res.status(200).json({ name, email, token })
+        res.status(200).json({ name, email, token, cart })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -80,20 +80,20 @@ const addToCart = async (req, res) => {
 
 const getCart = async (req, res) => {
     const { email } = req.body;
-    try{
-        const userCart = User.findOne({email: email}).select('cart');
+    try {
+        const userCart = User.findOne({ email: email }).select('cart');
         res.status(200).json(userCart);
-    }catch(error){
-        res.status(400).json({error: error.message});
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
 }
 
-const deleteItemFromCart = async(req,res) =>{
+const deleteItemFromCart = async (req, res) => {
     const { email, product_id } = req.body;
     const { id } = req.params;
-    try{
+    try {
         const userCart = await User.findOneAndUpdate(
-            {email:email},
+            { email: email },
             {
                 $pull: {
                     "cart.products": {
@@ -104,10 +104,57 @@ const deleteItemFromCart = async(req,res) =>{
             { new: true }
         )
         res.status(200).json(userCart);
-    }catch(error){
-        res.status(400).json({error: error.message});
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
 }
 
+const decrementItemfromCart = async (req, res) => {
+    const { email, product_id } = req.body;
+    const { id } = req.params;
+    try {
+        const userCart = await User.findOneAndUpdate(
+            { email: email, "cart.products.productId": id },
+            {
+                $inc: { "cart.products.$.quantity": -1 },
+            },
+            { new: true }
+        );
 
-module.exports = { loginUser, signupUser, addToCart, getCart, deleteItemFromCart }
+        // Check if the quantity is 0 after decrementing
+        if (userCart && userCart.cart) {
+            const productIndex = userCart.cart.products.findIndex(
+                (product) => product.productId === id
+            );
+            if (productIndex !== -1 && userCart.cart.products[productIndex].quantity === 0) {
+                // If quantity is 0, remove the product from the cart
+                userCart.cart.products.splice(productIndex, 1);
+                await userCart.save();
+            }
+        }
+
+        res.status(200).json(userCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const incrementItemfromCart = async (req, res) => {
+    const { email, product_id } = req.body;
+    const { id } = req.params;
+    try {
+        const userCart = await User.findOneAndUpdate(
+            { email: email, "cart.products.productId": id },
+            {
+                $inc: { "cart.products.$.quantity": 1 },
+            },
+            { new: true }
+        );
+
+        res.status(200).json(userCart);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+module.exports = { loginUser, signupUser, addToCart, getCart, deleteItemFromCart, decrementItemfromCart, incrementItemfromCart }

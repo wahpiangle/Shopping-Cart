@@ -1,6 +1,6 @@
 import { AiFillShopping, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout'
@@ -10,13 +10,16 @@ export default function NavBar() {
     const [menuToggle, setToggleMenu] = useState(false);
     const cart = useSelector(state => state.cart.value);
 
+    const { logout } = useLogout()
+    const { state } = useAuthContext()
+    const { user } = state
+
+    console.log(user)
+
     function handleNavClick(component) {
         setActiveComponent(component);
     }
 
-    const { logout } = useLogout()
-    const { state } = useAuthContext()
-    const { user } = state
 
     const handleLogout = () => {
         logout()
@@ -67,7 +70,6 @@ export default function NavBar() {
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('shop') }}><NavLink to='/shop'>Shop</NavLink></li>
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('contact') }}><NavLink to='/contact'>Contact</NavLink></li>
                         {!user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><NavLink to='/login'>Login</NavLink></li>}
-                        {user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><p onClick={handleLogout}>{displayText}</p></li>}
                     </ul>
                 </div>}
             </div>

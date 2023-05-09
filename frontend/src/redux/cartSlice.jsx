@@ -18,7 +18,6 @@ export const cartSlice = createSlice({
             const existingItem = state.value.itemsInCart.find(item => item.id === product.id);
             if (existingItem) {
                 existingItem.quantity += quantity;
-                state.value.totalItems += 1;
             } else {
                 state.value.itemsInCart.push({ ...product, quantity });
                 state.value.totalItems += 1;
@@ -46,7 +45,6 @@ export const cartSlice = createSlice({
             const itemIndex = state.value.itemsInCart.findIndex(item => item.id === itemId);
             if (itemIndex !== -1) {
                 state.value.itemsInCart[itemIndex].quantity += 1;
-                state.value.totalItems += 1;
                 state.value.totalPrice += state.value.itemsInCart[itemIndex].price;
             }
         },
@@ -55,7 +53,6 @@ export const cartSlice = createSlice({
             const itemIndex = state.value.itemsInCart.findIndex(item => item.id === itemId);
             if (itemIndex !== -1) {
                 state.value.itemsInCart[itemIndex].quantity -= 1;
-                state.value.totalItems -= 1;
                 state.value.totalPrice -= state.value.itemsInCart[itemIndex].price;
                 if (state.value.itemsInCart[itemIndex].quantity === 0) {
                     state.value.itemsInCart.splice(itemIndex, 1);

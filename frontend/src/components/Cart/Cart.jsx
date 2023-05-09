@@ -11,12 +11,35 @@ export default function Cart() {
     const { user } = state
     const dispatch = useDispatch();
 
-    function handleIncrementItem(id) {
+    async function handleIncrementItem(id) {
         dispatch(incrementItem(id));
+        const response = await fetch(`http://localhost:4000/api/users/cart/increment/${id}`,
+            {
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({email: user.email, product_id: id})
+            }
+        )
+        const json = await response.json();
+        console.log(json);
+
     }
 
-    function handleDecrementItem(id) {
+    async function handleDecrementItem(id) {
         dispatch(decrementItem(id));
+        const response = await fetch(`http://localhost:4000/api/users/cart/decrement/${id}`,
+            {
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({email: user.email, product_id: id})
+            }
+        )
+        const json = await response.json();
+        console.log(json);
     }
 
     async function handleClearItem(id) {
