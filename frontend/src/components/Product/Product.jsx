@@ -1,7 +1,7 @@
 import './Product.css'
 import { BsFillCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { addItems, setCart } from "../../redux/cartSlice";
+import { setCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
@@ -30,7 +30,6 @@ export default function Product({product}){
         })
         const json = await response.json();
         dispatch(setCart(json.cart.products))
-        console.log(json);
         setTimeout(() =>{
             setPurchased(false);
         },2000)

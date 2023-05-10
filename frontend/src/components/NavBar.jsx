@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout'
 import { useSelector, useDispatch } from 'react-redux';
-import { setCart } from '../redux/cartSlice';
 
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
@@ -26,7 +25,6 @@ export default function NavBar() {
         logout()
     }
 
-    console.log(user)
     return (
         <nav className="navbar">
             <NavLink to='/' onClick={() => handleNavClick()}>

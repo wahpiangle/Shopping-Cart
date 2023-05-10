@@ -30,7 +30,6 @@ export const useLogin = () => {
             body: JSON.stringify({ email })
         })
         const cartJson = await cartResponse.json()
-        console.log(cartJson)
 
         if (!response.ok) {
             setLoading(false)
