@@ -11,7 +11,7 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await login(email, password)
+        const res = await login(email, password) || null
         if (res.error === null) {
             navigate('/')
         }

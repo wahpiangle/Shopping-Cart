@@ -12,24 +12,8 @@ export default function NavBar() {
     const dispatch = useDispatch()
     const { logout } = useLogout()
 
-    //! fix user context status not updated upon cart changes
     const { state } = useAuthContext()
     const { user } = state
-
-    useEffect(()=>{
-        const fetchCart = async () => {
-            const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email: user.email})
-            })
-            const json = await response.json()
-            dispatch(setCart(json.cart.products))
-        }
-        fetchCart()
-    },[])
 
     //retrive value from cart slice
     const cart = useSelector(cart => cart.cart.value)
@@ -87,6 +71,7 @@ export default function NavBar() {
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('shop') }}><NavLink to='/shop'>Shop</NavLink></li>
                         <li onClick={() => { setToggleMenu(state => !state); handleNavClick('contact') }}><NavLink to='/contact'>Contact</NavLink></li>
                         {!user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('login') }}><NavLink to='/login'>Login</NavLink></li>}
+                        {user && <li onClick={() => { setToggleMenu(state => !state); handleNavClick('cart');}}><NavLink to='/cart'>Cart</NavLink></li>}
                     </ul>
                 </div>}
             </div>

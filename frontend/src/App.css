@@ -212,5 +212,5 @@ nav .nav-cart{
 .root-layout{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: max-content
 }

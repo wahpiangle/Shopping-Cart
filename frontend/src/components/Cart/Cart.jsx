@@ -11,7 +11,15 @@ export default function Cart() {
     const { user } = state
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.value)
-    console.log(cart)
+
+    const totalPrice = cart.reduce((accumulator, item) => {
+        const product = products.find((p) => p.id == item.productId);
+        if (product) {
+          return accumulator + product.price * item.quantity;
+        }
+        return accumulator;
+    }, 0);
+
 
     async function handleIncrementItem(id) {
         const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/increment/${id}`,
@@ -54,7 +62,7 @@ export default function Cart() {
         dispatch(setCart(json.cart.products))
     }
 
-    if (user.cart.products.length !== 0) {
+    if (cart.length !== 0) {
         return (
             <div className="cart">
                 <div className="cart-title">Cart</div>
@@ -82,11 +90,11 @@ export default function Cart() {
                         <div className='cart-total-title'>Cart total</div>
                         <div className='cart-total-items-container'>
                             <div className='cart-total-subtitle'>Subtotal</div>
-                            <div className='cart-total-subtotal'>${cart.totalPrice}</div>
+                            <div className='cart-total-subtotal'>${totalPrice}</div>
                             <div className='cart-total-subtitle'>Shipping</div>
                             <div className='cart-total-shipping'>No Shipping Options are available</div>
                         </div>
-                        <input type="hidden" name="cartTotalPrice" value={cart.totalPrice} />
+                        <input type="hidden" name="cartTotalPrice" value={0} />
                         <div className='button-wrapper'>
                             <a href="https://buy.stripe.com/test_9AQ3ehcER27o5689AA"><button className='cart-total-checkout'>Proceed to Checkout</button></a>
                         </div>
