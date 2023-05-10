@@ -1,7 +1,7 @@
 import './Cart.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RxCross1 } from 'react-icons/rx';
-import { incrementItem, decrementItem, clearItem } from '../../redux/cartSlice';
+import { setCart } from '../../redux/cartSlice';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
@@ -11,9 +11,9 @@ export default function Cart() {
     const { user } = state
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.value)
+    console.log(cart)
 
     async function handleIncrementItem(id) {
-        dispatch(incrementItem(id));
         const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/increment/${id}`,
             {
                 method: 'PUT',
@@ -24,10 +24,10 @@ export default function Cart() {
             }
         )
         const json = await response.json();
+        dispatch(setCart(json.products))
     }
 
     async function handleDecrementItem(id) {
-        dispatch(decrementItem(id));
         const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/decrement/${id}`,
             {
                 method: 'PUT',
@@ -38,10 +38,10 @@ export default function Cart() {
             }
         )
         const json = await response.json();
+        dispatch(setCart(json.cart.products))
     }
 
     async function handleClearItem(id) {
-        dispatch(clearItem(id));
         const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/${id}`,
         {
             method: 'DELETE',
@@ -51,7 +51,7 @@ export default function Cart() {
             body: JSON.stringify({email: user.email, product_id: id})
         })
         const json = await response.json();
-        console.log(json)
+        dispatch(setCart(json.cart.products))
     }
 
     if (user.cart.products.length !== 0) {
@@ -60,7 +60,7 @@ export default function Cart() {
                 <div className="cart-title">Cart</div>
                 <div className='cart-container'>
                     <div className='cart-items'>
-                        {user.cart.products.map(item => (
+                        {cart.length > 0 && cart.map(item => (
                             <div className='cart-item' key={products[item.productId-1].id}>
                                 <div className='cart-item-image'>
                                     <img src={products[item.productId-1].image[0].url} />

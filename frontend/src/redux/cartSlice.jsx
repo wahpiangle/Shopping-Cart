@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: {
-        itemsInCart: [],
-        totalItems: 0,
-        totalPrice: 0
-    },
+    //set initial state to be an empty array with no fields
+    value: []
 }
 
 export const cartSlice = createSlice({
@@ -62,11 +59,14 @@ export const cartSlice = createSlice({
         },
         setNumber: (state, action) => {
             state.value.totalItems = action.payload;
+        },
+        setCart: (state, action) => {
+            state.value = action.payload;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { addItems, removeItem, clearItem, incrementItem, decrementItem, setNumber } = cartSlice.actions
+export const { addItems, removeItem, clearItem, incrementItem, decrementItem, setNumber, setCart } = cartSlice.actions
 
 export default cartSlice.reducer

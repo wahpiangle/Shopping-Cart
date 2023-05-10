@@ -3,7 +3,7 @@ import './Individual.css'
 import { useState } from "react"
 import MyCarousel from "../Carousel/MyCarousel";
 import { useDispatch } from "react-redux";
-import { addItems, setNumber } from "../../redux/cartSlice";
+import { addItems, setCart, setNumber } from "../../redux/cartSlice";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function Individual() {
@@ -28,7 +28,7 @@ export default function Individual() {
     }
 
     async function handleAddToCart(){
-        dispatch(addItems({product, quantity}));
+        // dispatch(addItems({product, quantity}));
         setPurchased(true);
         const response = await fetch(`https://shoppe-api.onrender.com/api/users/addtocart`, {
             method: 'PUT',
@@ -45,8 +45,7 @@ export default function Individual() {
             })
         })
         const json = await response.json();
-        console.log(json);
-        dispatch(setNumber(json.cart.products.length < 0 ? 0 : json.cart.products.length ));
+        dispatch(setCart(json.cart.products))
         setTimeout(() =>{
             setPurchased(false);
         },2000)

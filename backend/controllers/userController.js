@@ -81,8 +81,8 @@ const addToCart = async (req, res) => {
 const getCart = async (req, res) => {
     const { email } = req.body;
     try {
-        const userCart = User.findOne({ email: email }).select('cart');
-        res.status(200).json(userCart);
+        const user = await User.findOne({ email: email }).select('cart').lean();
+        res.status(200).json(user.cart);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

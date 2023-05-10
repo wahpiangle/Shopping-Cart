@@ -1,19 +1,38 @@
 import { AiFillShopping, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
 import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout'
+import { useSelector, useDispatch } from 'react-redux';
+import { setCart } from '../redux/cartSlice';
 
 export default function NavBar() {
     const [activeComponent, setActiveComponent] = useState('');
     const [menuToggle, setToggleMenu] = useState(false);
-
+    const dispatch = useDispatch()
     const { logout } = useLogout()
 
     //! fix user context status not updated upon cart changes
     const { state } = useAuthContext()
     const { user } = state
+
+    useEffect(()=>{
+        const fetchCart = async () => {
+            const response = await fetch(`https://shoppe-api.onrender.com/api/users/cart/`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email: user.email})
+            })
+            const json = await response.json()
+            dispatch(setCart(json.cart.products))
+        }
+        fetchCart()
+    },[])
+
+    //retrive value from cart slice
+    const cart = useSelector(cart => cart.cart.value)
 
     function handleNavClick(component) {
         setActiveComponent(component);
@@ -24,7 +43,6 @@ export default function NavBar() {
     }
 
     console.log(user)
-
     return (
         <nav className="navbar">
             <NavLink to='/' onClick={() => handleNavClick()}>
@@ -45,7 +63,7 @@ export default function NavBar() {
                     <div className="nav-cart">
                         <AiFillShopping className="nav-cart-icon" />
                         <span className='nav-cart-quantity'>
-                            <span>{user.cart.products.length}</span>
+                            <span>{cart.length || 0}</span>
                         </span>
                     </div>
                 </NavLink>}
